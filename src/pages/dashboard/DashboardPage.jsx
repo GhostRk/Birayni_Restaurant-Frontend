@@ -1,6 +1,6 @@
 import Header from "../../components//Header.jsx";
 import Customers from "../../components//Customers.jsx";
-import Inventory from "../../components//Inventory.jsx";
+import Menu from "../../components/Menu.jsx";
 import Order from "../../components//Order.jsx";
 import "../../App.css";
 
@@ -16,7 +16,7 @@ const DashboardPage = () => {
           <h1>Today at a glance</h1>
         </div>
         <Order />
-        <Inventory />
+        <Menu />
         <Customers />
       </main>
       <footer className="page-footer">Biryani Restaurant <span>•</span> Operations</footer>
@@ -25,4 +25,3 @@ const DashboardPage = () => {
 }
 
 export default DashboardPage;
-

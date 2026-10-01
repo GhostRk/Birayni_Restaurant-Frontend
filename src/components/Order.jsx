@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext.jsx";
 import { getOrders } from "../services/orderService.js";
 import { createOrder } from "../services/orderService.js";
-import { getInventory } from "../services/inventoryService.js";
+import { getMenu } from "../services/menuService.js";
 import OrderFilterByDate from "./OrderFilterByDate.jsx";
 
 const emptyForm = {
@@ -21,13 +21,13 @@ function Order() {
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState("");
   const [form, setForm] = useState(() => ({ ...emptyForm }));
-  const [inventory, setInventory] = useState([]);
+  const [menuItems, setMenuItems] = useState([]);
   const [dateRange, setDateRange] = useState({
   startDate: "",
   endDate: "",
   });
  
-  const [inventoryError, setInventoryError] = useState("");
+  const [menuError, setMenuError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [dateChangeFlag, setDateChangeFlag] = useState(false);
   const [submitError, setSubmitError] = useState("");
@@ -93,17 +93,16 @@ function Order() {
   useEffect(() => {
     if (!token) return;
 
-    getInventory(token)
-      .then((inventory) => {
-        console.log("Fetched inventory:", inventory);
-        return setInventory(inventory);
+    getMenu(token)
+      .then((items) => {
+        return setMenuItems(items);
       })
-      .catch((requestError) => setInventoryError(requestError.message));
+      .catch((requestError) => setMenuError(requestError.message));
 
   }, [token]);
 
 
-  const selectedItem = inventory.find(
+  const selectedItem = menuItems.find(
   (item) => item.itemName === form.item
   );
 
@@ -156,7 +155,7 @@ console.log("Selected item:", selectedItem);
       <input className="form-control" id="order-location" name="location" value={form.location} onChange={handleChange} required />
     </div>
 
-    {inventoryError ? <p role="alert">{inventoryError}</p> :
+    {menuError ? <p role="alert">{menuError}</p> :
     <div className="col-12 col-md-6">
   <label className="form-label" htmlFor="order-item">
     Item
@@ -174,7 +173,7 @@ console.log("Selected item:", selectedItem);
       Select an item
     </option>
 
-    {inventory
+    {menuItems
       .filter((item) => item.quantityAvailable > 0)
       .map((item) => (
         <option key={item._id} value={item.itemName}>
@@ -183,9 +182,9 @@ console.log("Selected item:", selectedItem);
       ))}
   </select>
 
-  {inventoryError && (
+  {menuError && (
     <p className="text-danger mt-2" role="alert">
-      Could not load inventory: {inventoryError}
+      Could not load menu: {menuError}
     </p>
   )}
 </div>

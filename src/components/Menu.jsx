@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext.jsx";
-import { getInventory } from "../services/inventoryService.js";
-import { createInventory } from "../services/inventoryService.js";
+import { getMenu, createMenuItem } from "../services/menuService.js";
 
 const emptyForm = {
 itemName: "",
@@ -10,9 +9,9 @@ price: 0,
 unit: "full"
 };
 
-function Inventory() {
+function Menu() {
   const { token } = useAuth();
-  const [inventory, setInventory] = useState([]);
+  const [menuItems, setMenuItems] = useState([]);
   const [error, setError] = useState("");
   const [form, setForm] = useState(() => ({ ...emptyForm }));
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -35,12 +34,12 @@ function Inventory() {
 
    
 
-    createInventory(form, token)
-      .then((newInventoryItem) => {
+    createMenuItem(form, token)
+      .then((newMenuItem) => {
        
-        setInventory((prevInventory) => [...prevInventory, newInventoryItem]);
+        setMenuItems((previousItems) => [...previousItems, newMenuItem]);
         setForm({ ...emptyForm });
-        setSuccessMessage("Inventory item added successfully!");
+        setSuccessMessage("Menu item added successfully!");
       })
       .catch((requestError) => {
         setSubmitError(requestError.message);
@@ -54,11 +53,11 @@ function Inventory() {
   useEffect(() => {
     if (!token) return;
 
-    getInventory(token)
-      .then(setInventory)
+    getMenu(token)
+      .then(setMenuItems)
       .catch((requestError) => {
         setError(requestError.message);
-        setLoadError("Failed to load inventory.");
+        setLoadError("Failed to load menu items.");
       });
   }, [token]);
 
@@ -66,27 +65,27 @@ function Inventory() {
 
 
   return (
-    <section className="workspace-section" id="inventory">
+    <section className="workspace-section" id="menu">
       <div className="section-heading">
-        <h2>Inventory</h2>
+        <h2>Menu</h2>
       </div>
 
       <form className="surface-panel mb-4" onSubmit={handleSubmit}>
         <div className="panel-heading">
           <div>
-            <h3>Add inventory item</h3>
+            <h3>Add menu item</h3>
             <p className="panel-caption">Enter the item and available quantity.</p>
           </div>
         </div>
 
         <div className="row g-3">
           <div className="col-12 col-md-5">
-            <label className="form-label" htmlFor="inventory-item-name">
+            <label className="form-label" htmlFor="menu-item-name">
               Item name
             </label>
             <input
               className="form-control"
-              id="inventory-item-name"
+              id="menu-item-name"
               name="itemName"
               value={form.itemName}
               onChange={handleChange}
@@ -95,12 +94,12 @@ function Inventory() {
           </div>
 
           <div className="col-6 col-md-3">
-            <label className="form-label" htmlFor="inventory-quantity">
+            <label className="form-label" htmlFor="menu-quantity">
               Quantity available
             </label>
             <input
               className="form-control"
-              id="inventory-quantity"
+              id="menu-quantity"
               name="quantityAvailable"
               type="number"
               min="0"
@@ -111,12 +110,12 @@ function Inventory() {
           </div>
 
           <div className="col-6 col-md-2">
-            <label className="form-label" htmlFor="inventory-price">
+            <label className="form-label" htmlFor="menu-price">
               Price
             </label>
             <input
               className="form-control"
-              id="inventory-price"
+              id="menu-price"
               name="price"
               type="number"
               min="0"
@@ -127,12 +126,12 @@ function Inventory() {
           </div>
 
           <div className="col-6 col-md-2">
-            <label className="form-label" htmlFor="inventory-unit">
+            <label className="form-label" htmlFor="menu-unit">
               Unit
             </label>
             <select
               className="form-select"
-              id="inventory-unit"
+              id="menu-unit"
               name="unit"
               value={form.unit}
               onChange={handleChange}
@@ -171,12 +170,12 @@ function Inventory() {
             </tr>
           </thead>
           <tbody>
-            {inventory.length === 0 ? (
+            {menuItems.length === 0 ? (
               <tr>
-                <td colSpan="4">No inventory items found.</td>
+                <td colSpan="4">No menu items found.</td>
               </tr>
             ) : (
-              inventory.map((item) => (
+              menuItems.map((item) => (
                 <tr key={item._id}>
                   <td>{item.itemName}</td>
                   <td>{item.quantityAvailable}</td>
@@ -197,4 +196,4 @@ function Inventory() {
   );
 }
 
-export default Inventory;
+export default Menu;

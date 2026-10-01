@@ -11,7 +11,7 @@ const Header = () => {
       </a>
       <nav className="top-navigation" aria-label="Main navigation">
         <a href="#order">Orders</a>
-        <a href="#inventory">Inventory</a>
+        <a href="#menu">Menu</a>
         <a href="#customers">Customers</a>
         <button className="logout-button" onClick={() => { localStorage.removeItem("token"); window.location.href = "/login"; }}>
           Logout
