@@ -1,7 +1,7 @@
 import Header from "../../components//Header.jsx";
 import Customers from "../../components//Customers.jsx";
 import Menu from "../../components/Menu.jsx";
-import Order from "../../components//Order.jsx";
+import Order from "../../components/Order/Order.jsx";
 import "../../App.css";
 
 

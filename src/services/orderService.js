@@ -11,3 +11,11 @@ export  function createOrder(order, token) {
     token,
   });
 }
+
+export function updateOrder(orderId, updatedData, token) {
+  return apiRequest(`/orders/${orderId}`, {
+    method: "PATCH",
+    body: updatedData,
+    token,
+  });
+}
