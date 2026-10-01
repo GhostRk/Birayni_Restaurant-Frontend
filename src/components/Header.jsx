@@ -1,17 +1,24 @@
 
 const Header = () => {
   return (
-    <header>
-      <h1>Biryani Restaurant</h1>
-      <nav>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/menu">Menu</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/order">Order</a></li>
-          <li><a href="/inventory">Inventory</a></li>
-        </ul>
+    <header className="topbar">
+      <a className="brand-lockup" href="#top" aria-label="Biryani Restaurant home">
+        <span className="brand-mark" aria-hidden="true">B</span>
+        <span>
+          <strong>Biryani Restaurant</strong>
+          <small>Operations</small>
+        </span>
+      </a>
+      <nav className="top-navigation" aria-label="Main navigation">
+        <a href="#order">Orders</a>
+        <a href="#inventory">Inventory</a>
+        <a href="#customers">Customers</a>
+        <button className="logout-button" onClick={() => { localStorage.removeItem("token"); window.location.href = "/login"; }}>
+          Logout
+        </button>
       </nav>
     </header>
   );
-}
+};
+
+export default Header;
