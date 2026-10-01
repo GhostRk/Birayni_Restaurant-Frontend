@@ -1,6 +1,6 @@
 
 
-const OrderForm = ({error, form, handleChange, handleSubmit, isSubmitting, submitError, successMessage, menuItems, menuError, totalCost, token, isEditing, handleEditSubmit }) => {
+const OrderForm = ({error, form, handleChange,handleCancelEdit, handleSubmit, isSubmitting, submitError, successMessage, menuItems, menuError, totalCost, token, isEditing, handleEditSubmit }) => {
   return (
     <div className="order-form-container">
 
@@ -87,10 +87,11 @@ const OrderForm = ({error, form, handleChange, handleSubmit, isSubmitting, submi
   value={totalCost.toFixed(2)}
   readOnly
 />
-  {isEditing ?( <div>
-    <button className="btn btn-accent" type="submit" disabled={isSubmitting || !token} >
+  {isEditing ?( <div className="col-12 d-flex align-items-center gap-3">
+    <span><button className="btn btn-accent" onClick={handleCancelEdit} disabled={isSubmitting || !token} >Cancel Editing</button></span>
+    <span><button className="btn btn-accent" type="submit" disabled={isSubmitting || !token} >
         {isSubmitting ? "Editing order..." : "Edit order"}
-      </button>
+    </button></span>
       {submitError && <span className="text-danger" role="alert">{submitError}</span>}
       {successMessage && <span className="text-success" role="status">{successMessage}</span>}
   </div>) : (

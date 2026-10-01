@@ -50,6 +50,12 @@ function Order() {
     setDateChangeFlag((prev) => !prev);
   }
 
+  function handleCancelEdit() {
+    setIsEditing(false);
+    setEditOrderId(null);
+    setForm({ ...emptyForm });
+  }
+
 
    function handleEdit(order) {
     setIsEditing(true);
@@ -67,11 +73,13 @@ function Order() {
 
   }
 
+
    function handleEditSubmit(event) {
     event.preventDefault();
     setError("");
     setIsSubmitting(true);
     setSuccessMessage("");
+    
 
     setForm({
       username: form.username,
@@ -187,7 +195,7 @@ console.log("Selected item:", selectedItem);
   return (
     <>
   <section className="workspace-section" id="orders">
-   <OrderForm error={error} form={form} handleChange={handleChange} handleSubmit={handleSubmit} isSubmitting={isSubmitting} submitError={submitError} successMessage={successMessage} menuItems={menuItems} menuError={menuError} totalCost={totalCost} token={token} isEditing={isEditing} handleEditSubmit={handleEditSubmit} />
+   <OrderForm error={error} form={form} handleCancelEdit={handleCancelEdit} handleChange={handleChange} handleSubmit={handleSubmit} isSubmitting={isSubmitting} submitError={submitError} successMessage={successMessage} menuItems={menuItems} menuError={menuError} totalCost={totalCost} token={token} isEditing={isEditing} handleEditSubmit={handleEditSubmit} />
     <OrderView orders={orders} handleEdit={handleEdit} dateRange={dateRange} setDateRange={setDateRange} handleFilterSubmit={handleFilterSubmit} />
   </section>
   </>
