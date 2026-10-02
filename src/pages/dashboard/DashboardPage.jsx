@@ -1,7 +1,8 @@
 import Header from "../../components//Header.jsx";
-import Customers from "../../components//Customers.jsx";
-import Menu from "../../components/Menu.jsx";
-import Order from "../../components/Order/Order.jsx";
+
+import Menu from "../menu/Menu.jsx";
+import Order from "../orders/Order.jsx";
+
 import "../../App.css";
 
 
@@ -17,7 +18,6 @@ const DashboardPage = () => {
         </div>
         <Order />
         <Menu />
-        <Customers />
       </main>
       <footer className="page-footer">Biryani Restaurant <span>•</span> Operations</footer>
     </div>

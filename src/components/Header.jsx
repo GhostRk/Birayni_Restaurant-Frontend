@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <header className="topbar">
@@ -10,9 +10,9 @@ const Header = () => {
         </span>
       </a>
       <nav className="top-navigation" aria-label="Main navigation">
-        <a href="#order">Orders</a>
-        <a href="#menu">Menu</a>
-        <a href="#customers">Customers</a>
+        <a href="/dashboard#orders">Orders</a>
+        <a href="/dashboard#menu">Menu</a>
+        <Link to="/customers">Customers</Link>
         <button className="logout-button" onClick={() => { localStorage.removeItem("token"); window.location.href = "/login"; }}>
           Logout
         </button>

@@ -4,8 +4,8 @@ import { getOrders } from "../../services/orderService.js";
 import { createOrder } from "../../services/orderService.js";
 import { getMenu } from "../../services/menuService.js";
 import { updateOrder } from "../../services/orderService.js";
-import OrderForm from "./OrderComponents/OrderForm.jsx";
-import OrderView from "./OrderComponents/OrderView.jsx";
+import OrderForm from "../../components/Order/OrderForm.jsx";
+import OrderView from "../../components/Order/OrderView.jsx";
 
 const emptyForm = {
   username: "",

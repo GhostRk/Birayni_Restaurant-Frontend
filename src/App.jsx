@@ -3,6 +3,7 @@ import { useAuth } from "./context/AuthContext.jsx";
 import LoginPage from "./pages/auth/LoginPage.jsx";
 import SignupPage from "./pages/auth/SignupPage.jsx";
 import DashboardPage from "./pages/dashboard/DashboardPage.jsx";
+import CustomersPage from "./pages/customers/CustomersPage.jsx";
 
 function ProtectedRoute({ children }) {
   const { isAuthenticated } = useAuth();
@@ -34,6 +35,31 @@ function App() {
 
       {/* ProtectedRoute checks auth before rendering the dashboard. */}
       <Route
+        path="/customers"
+        element={
+          <ProtectedRoute>
+            <CustomersPage />
+          </ProtectedRoute>
+        }
+      />
+      {/* <Route
+        path="/order"
+        element={
+          <ProtectedRoute>
+            <DashboardPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/menu"
+        element={
+          <ProtectedRoute>
+            <DashboardPage />
+          </ProtectedRoute>
+        }
+      /> */}
+      
+      <Route
         path="/dashboard"
         element={
           <ProtectedRoute>
@@ -42,6 +68,11 @@ function App() {
         }
       />
     </Routes>
+
+    
+
+    
+
   );
 }
 
